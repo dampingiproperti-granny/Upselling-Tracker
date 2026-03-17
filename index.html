@@ -338,8 +338,8 @@ textarea { resize: vertical; min-height: 72px; }
 
 <div class="main">
 
-<!-- SETUP BANNER (tersembunyi kalau sudah ada URL) -->
-<div class="setup-banner" id="setup-banner">
+<!-- SETUP BANNER (disabled - URL sudah permanen) -->
+<div class="setup-banner" id="setup-banner" style="display:none">
   <strong>⚙️ Satu langkah terakhir: hubungkan ke Google Sheets</strong>
   Paste URL Google Apps Script kamu di sini. Lihat tab <b>Panduan</b> untuk cara mendapatkannya.
   <input type="text" id="script-url-input" placeholder="https://script.google.com/macros/s/ABC.../exec">
@@ -623,7 +623,7 @@ textarea { resize: vertical; min-height: 72px; }
 <script>
 // ===== CONFIG =====
 const SCRIPT_URL_KEY = 'grannys_nest_script_url';
-let SCRIPT_URL = localStorage.getItem(SCRIPT_URL_KEY) || '';
+let SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzlcmjoUqI4gs7YVjFPUBlQlkVnPIJX6cg5yGVYQXBz70VxeibTh63yTTJceQh2BEpM/exec';
 
 // ===== STATE =====
 let localEntries = JSON.parse(localStorage.getItem('gn_entries') || '[]');
@@ -653,13 +653,8 @@ window.onload = function() {
 };
 
 function checkSetup() {
-  const banner = document.getElementById('setup-banner');
-  if (SCRIPT_URL) {
-    banner.style.display = 'none';
-    updateConn(true);
-  } else {
-    updateConn(false);
-  }
+  document.getElementById('setup-banner').style.display = 'none';
+  updateConn(true);
 }
 
 function updateConn(online) {
